@@ -3,7 +3,7 @@ import "./App.css";
 import { useGoogleLogin } from "@react-oauth/google";
 
 // 🔹 CHANGE THIS to your real Render backend URL
-const API_BASE_URL = "https://YOUR-BACKEND-ON-RENDER.onrender.com";
+const API_BASE_URL = "https://logo-upload-backend.onrender.com";
 
 function App() {
   const [accessToken, setAccessToken] = useState(null);
@@ -37,10 +37,10 @@ function App() {
       formData.append("image", file);
       formData.append("accessToken", accessToken);
 
-      const res = await fetch(`${API_BASE_URL}/api/upload`, {
-        method: "POST",
-        body: formData,
-      });
+const res = await fetch(`${API_BASE_URL}/api/upload`, {
+  method: "POST",
+  body: formData,
+})
 
       const data = await res.json();
       setMessage(data.message || "Upload finished.");
