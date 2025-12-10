@@ -2,13 +2,16 @@ import { useState } from "react";
 import "./App.css";
 import { useGoogleLogin } from "@react-oauth/google";
 
+// 🔹 CHANGE THIS to your real Render backend URL
+const API_BASE_URL = "https://YOUR-BACKEND-ON-RENDER.onrender.com";
+
 function App() {
   const [accessToken, setAccessToken] = useState(null);
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
 
   const login = useGoogleLogin({
-    scope: "openid email profile",      // 👈 no Drive scope
+    scope: "openid email profile",
     onSuccess: (tokenResponse) => {
       console.log("Login success:", tokenResponse);
       setAccessToken(tokenResponse.access_token);
@@ -34,7 +37,7 @@ function App() {
       formData.append("image", file);
       formData.append("accessToken", accessToken);
 
-      const res = await fetch("http://localhost:5000/api/upload", {
+      const res = await fetch(`${API_BASE_URL}/api/upload`, {
         method: "POST",
         body: formData,
       });
